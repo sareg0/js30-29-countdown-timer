@@ -1,23 +1,25 @@
-const buttons = document.querySelectorAll('button')
+const buttons = document.querySelectorAll('[data-time]')
 const timeLeft = document.querySelector('.display__time-left')
 const endTime = document.querySelector('.display__end-time')
+document.customForm.addEventListener('submit', function (event) {
+	event.preventDefault()
+	const minutes = this.minutes.value
+	const seconds = parseInt(minutes) * 60
+	timer(seconds)
+})
 
 buttons.forEach((button) => {
 	button.addEventListener('click', start)
 })
 
-let intervals;
-
 function start () {
-	if (intervals) {
-		clearInterval(intervals)
-	}
 	timer(this.dataset.time)
 }
 
 let countdown;
 
 function timer (seconds) {
+	clearInterval(countdown)
 	const now = Date.now()
 	const until = now + seconds * 1000
 	let secondsLeft = Math.floor((until - Date.now()) / 1000)
@@ -39,7 +41,7 @@ function displayTime (timeInSeconds) {
 	const date = new Date(timeInSeconds)
 	const hours = date.getHours()
 	const minutes = date.getMinutes()
-	const displayText = `${hours}:${minutes}`
+	const displayText = `Back at ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
 	endTime.textContent = displayText
 }
 
