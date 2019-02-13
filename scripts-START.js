@@ -6,6 +6,7 @@ document.customForm.addEventListener('submit', function (event) {
 	const minutes = this.minutes.value
 	const seconds = parseInt(minutes) * 60
 	timer(seconds)
+	this.reset()
 })
 
 buttons.forEach((button) => {
